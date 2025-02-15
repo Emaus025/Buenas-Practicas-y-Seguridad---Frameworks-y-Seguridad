@@ -35,10 +35,31 @@ function Home() {
   }, [token]);
 
   return (
-    <div>
-      <h1>Bienvenido al Home</h1>
-      <p>Token: {token}</p> {/* Mostrar el token */}
-      <p>Tiempo restante: {timeLeft} segundos</p> {/* Mostrar el contador */}
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      backgroundColor: '#f5f5f5', // Fondo claro
+      fontFamily: 'Arial, sans-serif'
+    }}>
+      <div style={{
+        backgroundColor: '#fff',
+        padding: '2rem',
+        borderRadius: '8px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra suave
+        textAlign: 'center',
+        width: '300px'
+      }}>
+        <h1 style={{ margin: 0, marginBottom: '1rem', fontSize: '24px', color: '#333' }}>Bienvenido al Home</h1>
+        <p style={{ margin: '0.5rem 0', fontSize: '14px', color: '#555' }}>
+          <strong>Token:</strong> {token}
+        </p>
+        <p style={{ margin: '0.5rem 0', fontSize: '14px', color: '#555' }}>
+          <strong>Tiempo restante:</strong> <span style={{ color: timeLeft <= 10 ? 'red' : 'green', fontWeight: 'bold' }}>{timeLeft} segundos</span>
+        </p>
+      </div>
     </div>
   );
 }
