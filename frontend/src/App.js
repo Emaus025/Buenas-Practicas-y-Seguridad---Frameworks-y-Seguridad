@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/Login';
+import Auth from './components/Auth';
 import Home from './components/Home';
 
 function App() {
@@ -31,9 +31,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route path="/home" element={token ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/auth" element={<Auth setToken={setToken} />} />
+        <Route path="/home" element={token ? <Home /> : <Navigate to="/auth" />} />
+        <Route path="/" element={<Navigate to="/auth" />} />
       </Routes>
     </Router>
   );

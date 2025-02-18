@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 function Home() {
   const [timeLeft, setTimeLeft] = useState(60); // Tiempo inicial en segundos
+  const [userRole, setUserRole] = useState(''); // Estado para almacenar el rol del usuario
   const token = localStorage.getItem('token'); // Obtén el token del localStorage
 
   // Función para calcular el tiempo restante
   useEffect(() => {
     if (!token) return;
 
-    // Decodificar el token para obtener la fecha de expiración
+    // Decodificar el token para obtener la fecha de expiración y el rol del usuario
     const decodedToken = JSON.parse(atob(token.split('.')[1]));
     const expirationTime = decodedToken.exp * 1000; // Convertir a milisegundos
     const now = Date.now();
@@ -16,8 +17,9 @@ function Home() {
     // Calcular el tiempo restante en segundos
     const remainingTime = Math.floor((expirationTime - now) / 1000);
 
-    // Actualizar el estado con el tiempo restante
+    // Actualizar el estado con el tiempo restante y el rol del usuario
     setTimeLeft(remainingTime > 0 ? remainingTime : 0);
+    setUserRole(decodedToken.role || 'unknown');
 
     // Configurar un intervalo para actualizar el contador cada segundo
     const interval = setInterval(() => {
@@ -55,6 +57,9 @@ function Home() {
         <h1 style={{ margin: 0, marginBottom: '1rem', fontSize: '24px', color: '#333' }}>Bienvenido al Home</h1>
         <p style={{ margin: '0.5rem 0', fontSize: '14px', color: '#555' }}>
           <strong>Token:</strong> {token}
+        </p>
+        <p style={{ margin: '0.5rem 0', fontSize: '14px', color: '#555' }}>
+          <strong>Tipo de Usuario:</strong> {userRole}
         </p>
         <p style={{ margin: '0.5rem 0', fontSize: '14px', color: '#555' }}>
           <strong>Tiempo restante:</strong> <span style={{ color: timeLeft <= 10 ? 'red' : 'green', fontWeight: 'bold' }}>{timeLeft} segundos</span>
