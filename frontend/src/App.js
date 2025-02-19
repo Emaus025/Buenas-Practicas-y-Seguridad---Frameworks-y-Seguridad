@@ -19,7 +19,8 @@ function App() {
       } else {
         const timeout = setTimeout(() => {
           alert('La sesión ha expirado');
-          localStorage.removeItem('token'); // Eliminar el token expirado
+          localStorage.removeItem('token'); 
+          localStorage.removeItem('permissions'); // Eliminar el token expirado
           setToken('');
         }, expirationTime - now); // Configurar el timeout para cuando expire el token
 

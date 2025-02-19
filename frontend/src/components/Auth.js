@@ -16,9 +16,18 @@ function Auth({ setToken }) {
     try {
       const response = await axios.post('http://localhost:3001/login', { username, password });
       if (response.data.statusCode === 200) {
+        // Extraer token y permisos de la respuesta
         const token = response.data.intDataMessage[0].credentials;
+        const permissions = response.data.intDataMessage[0].permissions;
+  
+        // Guardar token y permisos en el localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('permissions', JSON.stringify(permissions)); // Almacenar permisos como JSON
+  
+        // Establecer el token en el estado global
         setToken(token);
-        localStorage.setItem('token', token); // Guarda el token en el localStorage
+  
+        // Redirigir al usuario a la página de inicio
         navigate('/home');
       }
     } catch (err) {
